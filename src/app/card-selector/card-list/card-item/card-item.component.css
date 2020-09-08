@@ -1,0 +1,17 @@
+.card-info{
+    display: inline-block;
+}
+
+.shop-img{
+    vertical-align: top;
+    max-height: 150px;
+}
+
+.shop-item{
+    border: none;
+    box-shadow: 5px 5px 7px #e1e1e3, -5px -5px 7px #ffffff;
+}
+
+.shop-item:hover{
+    box-shadow: 15px 15px 27px #e1e1e3, -15px -15px 27px #ffffff;
+}

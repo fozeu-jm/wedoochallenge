@@ -1,0 +1,37 @@
+<div class="row mt-4">
+    <div class="col-sm-12" *ngIf="cards!=null">
+        <h4>Votre montant est composé des cartes suivantes:</h4>
+    </div>
+    <div class="col-sm-12" *ngIf="cards!=null">
+        <div class="pl-3">
+            <h5 class="mr-2">Valeur totale : {{cards.value}} €</h5>
+        </div>
+        <app-card-item [value]="price" *ngFor="let price of cards.cards"></app-card-item>
+    </div>
+
+    <div *ngIf="cards==null && touched && ceil!=null && floor!=null" class="col-sm-12 text-center">
+        <div class="col-sm-12">
+            <div class="alert alert-warning">
+                <p>Le montant souhaité n'est pas possible, veuillez choisir un montant dans la liste</p>
+            </div>
+        </div>
+        <a (click)="onFloorValueSelect()" class="btn btn-info mr-4">{{floor.value }} €</a>
+
+        <a (click)="onCeilValueSelect()" class="btn btn-info">{{ceil.value}} €</a>
+    </div>
+
+    <div *ngIf="(cards==null && touched) && (ceil==null || floor==null)" class="col-sm-12 text-center">
+        <div class="col-sm-12">
+            <div class="alert alert-warning">
+                <p>Le montant souhaité n'est pas possible, seulement {{ceil===null ? floor.value : ceil.value}} € sont possibles</p>
+            </div>
+            <a *ngIf="floor!==null" (click)="onFloorValueSelect()" class="btn btn-info mr-4">{{floor.value }} €</a>
+
+            <a *ngIf="ceil!==null" (click)="onCeilValueSelect()" class="btn btn-info">{{ceil.value}} €</a>
+        </div>
+    </div>
+
+    <div class="col-sm-12 text-center mt-3" *ngIf="cards==null">
+        <p>Entrez un montant valide pour afficher les cheques cadeau disponible !</p>
+    </div>
+</div>

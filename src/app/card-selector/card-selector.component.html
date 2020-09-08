@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col-sm-12">
+        <app-selector-edit (valueSubmit)="onValueSelect($event)" [value]="valueNumber">
+        </app-selector-edit>
+    </div>
+    <div class="col-sm-12">
+
+        <app-card-list (valueSelect)="onValueSelect($event)"></app-card-list>
+
+    </div>
+</div>

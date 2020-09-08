@@ -1,0 +1,13 @@
+input.ng-invalid.ng-dirty,
+textarea.ng-invalid.ng-dirty{
+    border: 1px solid red;
+}
+
+.help-block{
+    color: red;
+}
+
+.form-control:focus {
+    border-color: none; 
+    box-shadow: none; 
+}
