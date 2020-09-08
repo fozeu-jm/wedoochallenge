@@ -1,18 +1,22 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { CalculatorComponentValue } from '../calculator-response.model';
 import { cardService } from '../card-service.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-card-list',
   templateUrl: './card-list.component.html',
   styleUrls: ['./card-list.component.css']
 })
-export class CardListComponent implements OnInit {
+export class CardListComponent implements OnInit, OnDestroy {
   cards : CalculatorComponentValue = null;
   ceil : CalculatorComponentValue = null;
   floor : CalculatorComponentValue = null;
   @Output() valueSelect = new EventEmitter<number>();
   touched:boolean = false;
+  cSubscription : Subscription;
+  eSubscription : Subscription;
+  fSubscription : Subscription;
 
   constructor(private cardService: cardService) { }
 
@@ -21,7 +25,7 @@ export class CardListComponent implements OnInit {
   }
 
   private subscribeInit(){
-    this.cardService.equalSelect.subscribe(
+   this.eSubscription = this.cardService.equalSelect.subscribe(
       (cards : CalculatorComponentValue)=>{
         this.cards = cards;
         this.touched=true;
@@ -31,14 +35,14 @@ export class CardListComponent implements OnInit {
       }
     );
 
-    this.cardService.ceilSelect.subscribe(
+   this.cSubscription = this.cardService.ceilSelect.subscribe(
       (ceil : CalculatorComponentValue)=>{
         this.ceil = ceil;
         this.touched=true;
       }
     );
 
-    this.cardService.floorSelect.subscribe(
+   this.fSubscription = this.cardService.floorSelect.subscribe(
       (floor : CalculatorComponentValue)=>{
         this.floor = floor;
         this.touched=true;
@@ -52,6 +56,12 @@ export class CardListComponent implements OnInit {
 
   onFloorValueSelect(){
     this.valueSelect.emit(this.floor.value);
+  }
+
+  ngOnDestroy(){
+    this.cSubscription.unsubscribe();
+    this.eSubscription.unsubscribe();
+    this.fSubscription.unsubscribe();
   }
 
 }
