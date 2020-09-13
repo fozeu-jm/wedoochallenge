@@ -8,7 +8,7 @@ import { UseExistingWebDriver } from 'protractor/built/driverProviders';
 @Injectable({ providedIn: 'root' })
 export class cardService {
 
-    readonly SECRETKEY: string = "tokenTest123";
+    
     equal: CalculatorComponentValue = null;
     floor: CalculatorComponentValue = null;
     ceil: CalculatorComponentValue = null;
@@ -21,7 +21,6 @@ export class cardService {
     purchaseRequest(amount: number) {
         this.reset();
         return this.http.get<any>("http://ec2-13-58-250-2.us-east-2.compute.amazonaws.com:3000/shop/5/search-combination", {
-            headers: new HttpHeaders({ "Authorization": this.SECRETKEY }),
             params: new HttpParams().set("amount", amount.toString())
         }).pipe(tap(
             (response) => {
@@ -51,7 +50,6 @@ export class cardService {
     simpleSearch(amount: number) {
         this.reset();
         return this.http.get<any>("http://ec2-13-58-250-2.us-east-2.compute.amazonaws.com:3000/shop/5/search-combination", {
-            headers: new HttpHeaders({ "Authorization": this.SECRETKEY }),
             params: new HttpParams().set("amount", amount.toString())
         }).pipe(tap(
             (response) => {
